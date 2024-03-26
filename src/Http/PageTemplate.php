@@ -59,11 +59,13 @@ class PageTemplate
     {
         $page = Page::where('route', $route ?? Route::currentRouteName())
             ->first();
+
         if ($page) {
             $this->page = $page;
             $this->title($page->title);
             $this->contents = $page->contents()
                 ->where('visible', true)
+                ->whereNotNull('content')
                 ->ordered()
                 ->get();
         }
@@ -141,6 +143,7 @@ class PageTemplate
         if ($twitter) {
             return Vite::asset('resources/img/socials_small.jpg');
         }
+
         return Vite::asset('resources/img/socials.jpg');
     }
 
@@ -163,7 +166,7 @@ class PageTemplate
     {
         $defaults = [
             'description' => $this->page?->meta_description ?? null,
-            'keywords' => 'portfolio, developer, fullstack, backend, frontend, web design, web, php, mysql, laravel, vue, javascript, Whitecube, Jonathan Rixhon',
+            'keywords' => implode(', ', config('contents.page.keywords')),
             'og:description' => $this->page?->meta_og ?? null,
             'og:image' => $this->getImage(),
             'og:title' => $this->getTitle(false),
@@ -207,9 +210,7 @@ class PageTemplate
      */
     public function getContents(): Collection
     {
-        return $this->contents->filter(function ($content) {
-            return $content->content;
-        });
+        return $this->contents;
     }
 
     /**

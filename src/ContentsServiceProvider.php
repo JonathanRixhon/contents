@@ -14,7 +14,7 @@ class ContentsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations/' => database_path()
+            __DIR__ . '/../database/migrations/' => database_path('migrations')
         ], 'contents-migrations');
 
         $this->publishes([
@@ -27,9 +27,6 @@ class ContentsServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/contents.php',
-            'contents'
-        );
+        $this->mergeConfigFrom(__DIR__ . '/../config/contents.php', 'contents');
     }
 }

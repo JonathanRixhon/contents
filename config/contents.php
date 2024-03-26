@@ -12,5 +12,11 @@ return [
 
     'components' => [
         //ExampleComponent::class
+    ],
+
+    'page' => [
+        'keywords' => [
+            //'website'
+        ]
     ]
 ];

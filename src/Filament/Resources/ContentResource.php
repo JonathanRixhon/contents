@@ -35,7 +35,7 @@ class ContentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('component')
                     ->formatStateUsing(function (Content $record) {
-                        return $record->content[$record->component::$tableValue];
+                        return $record->content[$record->component::$tableValue] ?? 'No content';
                     })
                     ->tooltip(function (Content $record) {
                         return $record->component::description();

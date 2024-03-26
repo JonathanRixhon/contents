@@ -3,6 +3,13 @@
 This is a Laravel Filament package to manage single view rendering with various components.
 This package also include a Filament Page resource to manage your application's pages.
 
+```php
+'providers' => ServiceProvider::defaultProviders()->merge([
+    //…
+    ContentsServiceProvider::class,
+])->toArray(),
+```
+
 ## Guides
 
 ### Add components to a model and its resource
@@ -71,7 +78,7 @@ public static function availableComponents(): array {
 
 Or edit the default component array in the `contents.php` config file.
 
-## Creating components
+### Creating components
 
 To create a component, just run the Laravel command:
 

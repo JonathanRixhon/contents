@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\PageResource\Pages;
+namespace Jonathanrixhon\Contents\Filament\Resources\PageResource\Pages;
 
 use Jonathanrixhon\Contents\Filament\Resources\PageResource;
 use Jonathanrixhon\Contents\Filament\Pages\ManageContents as ManageContentsBase;

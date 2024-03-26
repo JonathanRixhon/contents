@@ -11,10 +11,13 @@ use Filament\Forms\Components\TextArea;
 use Filament\Forms\Components\TextInput;
 use Jonathanrixhon\Contents\Models\Page;
 use Filament\Pages\SubNavigationPosition;
-use App\Filament\Resources\PageResource\Pages;
 use Filament\Resources\Pages\Page as FilamentResourcePage;
 use Jonathanrixhon\Contents\Filament\Resources\Concerns\HasContents;
+use Jonathanrixhon\Contents\Filament\Resources\PageResource\Pages\EditPage;
+use Jonathanrixhon\Contents\Filament\Resources\PageResource\Pages\ListPages;
+use Jonathanrixhon\Contents\Filament\Resources\PageResource\Pages\CreatePage;
 use Jonathanrixhon\Contents\Filament\RelationManagers\ContentsRelationManager;
+use Jonathanrixhon\Contents\Filament\Resources\PageResource\Pages\ManageContents;
 
 class PageResource extends Resource
 {
@@ -92,18 +95,18 @@ class PageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPages::route('/'),
-            'create' => Pages\CreatePage::route('/create'),
-            'edit' => Pages\EditPage::route('/{record}/edit'),
-            'manage-contents' => Pages\ManageContent::route('/{record}/contents/edit'),
+            'index' => ListPages::route('/'),
+            'create' => CreatePage::route('/create'),
+            'edit' => EditPage::route('/{record}/edit'),
+            'manage-contents' => ManageContents::route('/{record}/contents/edit'),
         ];
     }
 
     public static function getRecordSubNavigation(FilamentResourcePage $page): array
     {
         return $page->generateNavigationItems([
-            Pages\EditPage::class,
-            Pages\ManageContent::class,
+            EditPage::class,
+            ManageContents::class,
         ]);
     }
 }
