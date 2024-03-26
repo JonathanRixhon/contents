@@ -3,6 +3,16 @@
 This is a Laravel Filament package to manage single view rendering with various components.
 This package also include a Filament Page resource to manage your application's pages.
 
+## TODO
+
+- Multilingual component support,
+- write better documentation
+- better namespace / folder hierarchy
+- Tests
+- better way to set component default folder (in config menu)
+
+## Import serviceprovider
+
 ```php
 'providers' => ServiceProvider::defaultProviders()->merge([
     //…
