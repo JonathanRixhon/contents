@@ -20,6 +20,8 @@ class ContentsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/contents.php' => config_path('contents.php'),
         ], ['contents-config']);
+
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'contents');
     }
 
     /**

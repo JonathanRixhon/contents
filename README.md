@@ -5,7 +5,7 @@ This package also include a Filament Page resource to manage your application's 
 
 ## TODO
 
-- Multilingual component support,
+- Multilingual component support DONE,
 - write better documentation
 - better namespace / folder hierarchy
 - Tests

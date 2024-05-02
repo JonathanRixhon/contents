@@ -30,12 +30,21 @@ class ContentResource extends Resource
             ->defaultSort('order')
             ->reorderable('order')
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->mutateFormDataUsing(function (array $data): array {
+                        return method_exists($data['component'], 'mutateBeforeSave')
+                            ? $data['component']::mutateBeforeSave($data)
+                            : $data;
+                    })
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('component')
+                    ->label(__('contents::contents.component.singular'))
                     ->formatStateUsing(function (Content $record) {
-                        return $record->content[$record->component::$tableValue] ?? 'No content';
+                        $component = $record->component
+                            ? new $record->component($record->content)
+                            : null;
+                        return $component->{$component::$tableValue} ?? 'No content';
                     })
                     ->tooltip(function (Content $record) {
                         return $record->component::description();
@@ -44,10 +53,23 @@ class ContentResource extends Resource
                         return $record->component::label();
                     }),
                 Tables\Columns\IconColumn::make('visible')
+                    ->label(__('contents::contents.visible'))
                     ->boolean()
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->mutateRecordDataUsing(function (array $data): array {
+                        return method_exists($data['component'], 'mutateBeforeFill')
+                            ? $data['component']::mutateBeforeFill($data)
+                            : $data;
+                    })
+                    ->mutateFormDataUsing(function (array $data): array {
+                        return method_exists($data['component'], 'mutateBeforeSave')
+                            ? $data['component']::mutateBeforeSave($data)
+                            : $data;
+                    }),
+                Tables\Actions\DeleteAction::make()
+                    ->modalHeading(__('contents::contents.content.delete'))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

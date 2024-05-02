@@ -18,23 +18,35 @@ trait HasContents
         $schema = array_merge([self::componentSelect()], self::groups());
 
         return Repeater::make('contents')
+            ->label(__('contents::contents.content.plurial'))
             ->live(onBlur: true)
             ->relationship()
             ->orderColumn('order')
             ->columnSpanFull()
             ->schema($schema)
-            ->addActionLabel('Add component')
+            ->addActionLabel(__('contents::contents.component.add'))
             ->collapsible()
             ->cloneable()
             ->reorderableWithButtons()
+            ->collapsed()
             ->itemLabel(function (array $state) {
-                $title = 'New component';
-
+                $title = __('contents::contents.component.new');
                 if ($state['component']) {
-                    $title = $state['content'][$state['component']::$tableValue] ?? $state['component']::label();
+                    $component = (new $state['component']($state['content']));
+                    $title = $component->{$component::$tableValue} ?? $state['component']::label();
                 }
 
                 return Str::limit($title, 30, '…');
+            })
+            ->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
+                return method_exists($data['component'], 'mutateBeforeSave')
+                    ? $data['component']::mutateBeforeSave($data)
+                    : $data;
+            })
+            ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
+                return method_exists($data['component'], 'mutateBeforeFill')
+                    ? $data['component']::mutateBeforeFill($data)
+                    : $data;
             });
     }
 
@@ -47,11 +59,10 @@ trait HasContents
     protected static function groups(): array
     {
         return array_map(function ($component) {
-            return Group::make($component::fields())
+            return Group::make($component::getFields())
                 ->visible(function (Get $get) use ($component) {
                     return $get('component') === $component;
-                })
-                ->columnSpanFull();
+                })->columnSpanFull();
         }, self::availableComponents());
     }
 
@@ -61,6 +72,8 @@ trait HasContents
     protected static function componentSelect(): Select
     {
         return Select::make('component')
+            ->label(__('contents::contents.component.singular'))
+            ->native(false)
             ->options(self::availableComponentOptions())
             ->columnSpanFull()
             ->live()
@@ -82,7 +95,8 @@ trait HasContents
     /**
      * List all the available for the current resource.
      */
-    public static function availableComponents(): array {
+    public static function availableComponents(): array
+    {
         return config('contents.components');
     }
 }

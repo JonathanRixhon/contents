@@ -4,10 +4,14 @@ namespace Jonathanrixhon\Contents\View\Components\Concerns;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Filament\Forms\Components\Field;
 
 
 abstract class Component extends \Illuminate\View\Component
 {
+    /**
+     * the component's content
+     */
     public array|null $content;
 
     /**
@@ -28,9 +32,17 @@ abstract class Component extends \Illuminate\View\Component
     /**
      * Create a new component instance.
      */
-    public function __construct(null|array $content)
+    public function __construct(null|array $content = [])
     {
         $this->content = $content;
+    }
+
+    /**
+     * Create a new component instance.
+     */
+    public function __get(string $attribute): mixed
+    {
+        return $this->content($attribute) ?? $this->{$attribute} ?? null;
     }
 
     /**
@@ -57,10 +69,33 @@ abstract class Component extends \Illuminate\View\Component
     }
 
     /**
+     * Get the content's value
+     */
+    protected function content(string $key): mixed
+    {
+        return data_get($this->content, $key) ?? $this->{$key} ?? null;
+    }
+
+    /**
+     * Get the content's value
+     */
+    public static function getFields()
+    {
+        return array_map(function (Field $field) {
+            $name = 'content.' . $field->getName();
+            return $field->statePath($name);
+        }, static::fields());
+    }
+
+    /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view(static::$componentFolder . '.' . static::$view, $this->process($this->content));
+        $content = $this->subComponent
+            ? $this->content
+            : $this->process($this->content);
+
+        return view(static::$componentFolder . '.' . static::$view, $content);
     }
 }

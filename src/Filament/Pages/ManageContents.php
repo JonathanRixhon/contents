@@ -10,11 +10,11 @@ class ManageContents extends \Filament\Resources\Pages\ManageRelatedRecords
 {
     protected static string $relationship = 'contents';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-square-3-stack-3d';
 
     public static function getNavigationLabel(): string
     {
-        return 'Contents';
+        return __('contents::contents.content.plurial');
     }
 
     public function form(Form $form): Form

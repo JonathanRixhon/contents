@@ -36,7 +36,7 @@ class Content extends Model  implements Sortable
      * @var array
      */
     protected $casts = [
-        'content' => 'array',
+        'content' => 'json',
     ];
 
     public function buildSortQuery()

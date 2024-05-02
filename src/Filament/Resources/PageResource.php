@@ -32,22 +32,27 @@ class PageResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Section::make('General informations')
+            Section::make(__('contents::page.general'))
                 ->columns(2)
                 ->schema([
                     TextInput::make('title')
+                        ->label(__('contents::page.fields.title'))
                         ->required(),
                     TextInput::make('route')
+                        ->label(__('contents::page.fields.route'))
                         ->disabled()
                         ->required(),
                     TextArea::make('meta_description')
+                        ->label(__('contents::page.fields.meta_description'))
                         ->columnSpanFull(),
                     TextArea::make('meta_og')
+                        ->label(__('contents::page.fields.meta_og'))
                         ->columnSpanFull(),
                     TextArea::make('meta_twitter')
+                        ->label(__('contents::page.fields.meta_twitter'))
                         ->columnSpanFull(),
                 ]),
-            Section::make('Contents')
+            Section::make(__('contents::page.contents.plurial'))
                 ->schema([self::contentRepeater()]),
         ]);
     }
@@ -57,16 +62,22 @@ class PageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__('contents::page.fields.title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('route')
+                    ->label(__('contents::page.fields.route'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('meta_description')
+                    ->label(__('contents::page.fields.meta_description'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('meta_og')
+                    ->label(__('contents::page.fields.meta_og'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('meta_twitter')
+                    ->label(__('contents::page.fields.meta_twitter'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('contents::page.fields.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

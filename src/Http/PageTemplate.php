@@ -15,6 +15,11 @@ class PageTemplate
     protected ?Page $page;
 
     /**
+     * The page's model class
+     */
+    protected string $pageClass = Page::class;
+
+    /**
      * The page's main title tag content
      */
     protected ?string $title;
@@ -57,7 +62,7 @@ class PageTemplate
      */
     public function load(?string $route = null): static
     {
-        $page = Page::where('route', $route ?? Route::currentRouteName())
+        $page = $this->pageClass::where('route', $route ?? Route::currentRouteName())
             ->first();
 
         if ($page) {
