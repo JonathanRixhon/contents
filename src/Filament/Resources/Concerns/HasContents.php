@@ -2,6 +2,7 @@
 
 namespace Jonathanrixhon\Contents\Filament\Resources\Concerns;
 
+use Filament\Facades\Filament;
 use Filament\Forms\Get;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\Group;
@@ -73,10 +74,10 @@ trait HasContents
     {
         return Select::make('component')
             ->label(__('contents::contents.component.singular'))
-            ->native(false)
             ->options(self::availableComponentOptions())
             ->columnSpanFull()
             ->live()
+            ->disabled(fn ($state) => $state ? true : false)
             ->required();
     }
 

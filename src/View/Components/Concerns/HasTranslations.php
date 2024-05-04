@@ -4,6 +4,7 @@ namespace Jonathanrixhon\Contents\View\Components\Concerns;
 
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Field;
+use Filament\SpatieLaravelTranslatablePlugin;
 
 trait HasTranslations
 {
@@ -15,7 +16,7 @@ trait HasTranslations
      */
     public bool $skipTranslations;
 
-     /**
+    /**
      * Create a new component instance.
      */
     public function __construct(null|array $content = [], bool $skipTranslations = false)
@@ -56,12 +57,11 @@ trait HasTranslations
      */
     public static function tabs(): Tabs
     {
-        $langs = ['fr', 'en'];
 
         $tabs = array_map(function ($lang) {
             return Tabs\Tab::make(mb_strtoupper($lang))
                 ->schema(static::remapFields($lang));
-        }, $langs);
+        }, self::getLocales());
 
         return Tabs::make('Tabs')->tabs($tabs);
     }
@@ -112,5 +112,14 @@ trait HasTranslations
         }
 
         return $data;
+    }
+
+    protected static function getLocales(): array
+    {
+        $filamentTranslatable = filament()->hasPlugin('spatie-laravel-translatable')
+            ? filament('spatie-laravel-translatable')->getDefaultLocales()
+            : null;
+
+        return config('contents.locales') ?? $filamentTranslatable ?? [config('app.locale')];
     }
 }
