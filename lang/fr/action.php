@@ -4,15 +4,17 @@ return [
     'visible' => 'Visible',
 
     'content' => [
-        'singular' => 'Contenu',
-        'plurial' => 'Contenus',
         'delete' => 'Supprimer le contenu',
+        'edit' => 'Editer le contenu',
+    ],
+    
+    'page' => [
+        'edit' => 'Modifier la page',
     ],
 
     'component' => [
-        'singular' => 'Composant',
-        'plurial' => 'Composants',
+        'edit' => 'Editer le composant',
         'add' => 'Ajouter un composant',
-        'new' => 'Nouveau composant'
+        'create' => 'Nouveau composant'
     ],
 ];

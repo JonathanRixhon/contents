@@ -12,9 +12,15 @@ class ManageContents extends \Filament\Resources\Pages\ManageRelatedRecords
 
     protected static ?string $navigationIcon = 'heroicon-o-square-3-stack-3d';
 
+    public function getTitle(): string
+    {
+        return __('contents::action.content.edit');
+    }
+
+
     public static function getNavigationLabel(): string
     {
-        return __('contents::contents.content.plurial');
+        return __('contents::label.content');
     }
 
     public function form(Form $form): Form

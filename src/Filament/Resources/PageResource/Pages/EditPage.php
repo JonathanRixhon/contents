@@ -9,19 +9,20 @@ class EditPage extends EditRecord
 {
     protected static string $resource = PageResource::class;
 
+    public function getTitle(): string
+    {
+        return __('contents::action.page.edit');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('contents::action.page.edit');
+    }
+
     protected function getHeaderActions(): array
     {
         return [];
     }
-
-    protected function mutateFormDataBeforeSave(array $data): array
-    {
-        if (method_exists(PageResource::class, 'process')) {
-            return PageResource::process($data);
-        }
-        return $data;
-    }
-
 
     public function getRelationManagers(): array
     {

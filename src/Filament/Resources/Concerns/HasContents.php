@@ -19,19 +19,19 @@ trait HasContents
         $schema = array_merge([self::componentSelect()], self::groups());
 
         return Repeater::make('contents')
-            ->label(__('contents::contents.content.plurial'))
+            ->label(__('contents::label.contents'))
             ->live(onBlur: true)
             ->relationship()
             ->orderColumn('order')
             ->columnSpanFull()
             ->schema($schema)
-            ->addActionLabel(__('contents::contents.component.add'))
+            ->addActionLabel(__('contents::action.component.add'))
             ->collapsible()
             ->cloneable()
             ->reorderableWithButtons()
             ->collapsed()
             ->itemLabel(function (array $state) {
-                $title = __('contents::contents.component.new');
+                $title = __('contents::action.component.create');
                 if ($state['component']) {
                     $component = (new $state['component']($state['content']));
                     $title = $component->{$component::$tableValue} ?? $state['component']::label();
@@ -73,7 +73,7 @@ trait HasContents
     protected static function componentSelect(): Select
     {
         return Select::make('component')
-            ->label(__('contents::contents.component.singular'))
+            ->label(__('contents::label.component'))
             ->options(self::availableComponentOptions())
             ->columnSpanFull()
             ->live()

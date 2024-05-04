@@ -39,7 +39,7 @@ class ContentResource extends Resource
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('component')
-                    ->label(__('contents::contents.component.singular'))
+                    ->label(__('contents::label.component'))
                     ->formatStateUsing(function (Content $record) {
                         $component = $record->component
                             ? new $record->component($record->content)
@@ -53,11 +53,12 @@ class ContentResource extends Resource
                         return $record->component::label();
                     }),
                 Tables\Columns\IconColumn::make('visible')
-                    ->label(__('contents::contents.visible'))
+                    ->label(__('contents::label.visible'))
                     ->boolean()
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
+                    ->modalHeading(__('contents::action.content.edit'))
                     ->mutateRecordDataUsing(function (array $data): array {
                         return method_exists($data['component'], 'mutateBeforeFill')
                             ? $data['component']::mutateBeforeFill($data)
@@ -69,7 +70,7 @@ class ContentResource extends Resource
                             : $data;
                     }),
                 Tables\Actions\DeleteAction::make()
-                    ->modalHeading(__('contents::contents.content.delete'))
+                    ->modalHeading(__('contents::action.content.delete'))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -32,27 +32,27 @@ class PageResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Section::make(__('contents::page.general'))
+            Section::make(__('contents::page.title.general'))
                 ->columns(2)
                 ->schema([
                     TextInput::make('title')
-                        ->label(__('contents::page.fields.title'))
+                        ->label(__('contents::label.title'))
                         ->required(),
                     TextInput::make('route')
-                        ->label(__('contents::page.fields.route'))
+                        ->label(__('contents::label.route'))
                         ->disabled()
                         ->required(),
                     TextArea::make('meta_description')
-                        ->label(__('contents::page.fields.meta_description'))
+                        ->label(__('contents::label.meta_description'))
                         ->columnSpanFull(),
                     TextArea::make('meta_og')
-                        ->label(__('contents::page.fields.meta_og'))
+                        ->label(__('contents::label.meta_og'))
                         ->columnSpanFull(),
                     TextArea::make('meta_twitter')
-                        ->label(__('contents::page.fields.meta_twitter'))
+                        ->label(__('contents::label.meta_twitter'))
                         ->columnSpanFull(),
                 ]),
-            Section::make(__('contents::page.contents.plurial'))
+            Section::make(__('contents::label.contents'))
                 ->schema([self::contentRepeater()]),
         ]);
     }
@@ -62,22 +62,22 @@ class PageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('contents::page.fields.title'))
+                    ->label(__('contents::label.title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('route')
-                    ->label(__('contents::page.fields.route'))
+                    ->label(__('contents::label.route'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('meta_description')
-                    ->label(__('contents::page.fields.meta_description'))
+                    ->label(__('contents::label.meta_description'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('meta_og')
-                    ->label(__('contents::page.fields.meta_og'))
+                    ->label(__('contents::label.meta_og'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('meta_twitter')
-                    ->label(__('contents::page.fields.meta_twitter'))
+                    ->label(__('contents::label.meta_twitter'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('contents::page.fields.created_at'))
+                    ->label(__('contents::label.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -87,7 +87,8 @@ class PageResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->modalHeading(__('contents::action.content.edit'))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
