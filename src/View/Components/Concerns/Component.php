@@ -98,4 +98,28 @@ abstract class Component extends \Illuminate\View\Component
 
         return view(static::$componentFolder . '.' . static::$view, $content);
     }
+
+    /**
+     * Mutate translated datas before save
+     */
+    public static function mutateBeforeSave(array $data): array
+    {
+        return $data;
+    }
+
+    /**
+     * Mutate translated datas before save
+     */
+    public static function mutateBeforeFill(array $data): array
+    {
+        return $data;
+    }
+
+    /**
+     * Mutate translated datas before create
+     */
+    public static function mutateBeforeCreate(array $data): array
+    {
+        return $data;
+    }
 }

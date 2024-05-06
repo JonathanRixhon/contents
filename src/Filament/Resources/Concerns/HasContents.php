@@ -40,14 +40,13 @@ trait HasContents
                 return Str::limit($title, 30, '…');
             })
             ->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
-                return method_exists($data['component'], 'mutateBeforeSave')
-                    ? $data['component']::mutateBeforeSave($data)
-                    : $data;
+                return self::mutateBeforeCreate($data);
+            })
+            ->mutateRelationshipDataBeforeCreateUsing(function (array $data): array {
+                return self::mutateBeforeSave($data);
             })
             ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
-                return method_exists($data['component'], 'mutateBeforeFill')
-                    ? $data['component']::mutateBeforeFill($data)
-                    : $data;
+                return self::mutateBeforeFill($data);
             });
     }
 
@@ -78,6 +77,7 @@ trait HasContents
             ->columnSpanFull()
             ->live()
             ->disabled(fn ($state) => $state ? true : false)
+            ->dehydrated()
             ->required();
     }
 
@@ -99,5 +99,26 @@ trait HasContents
     public static function availableComponents(): array
     {
         return config('contents.components');
+    }
+
+    protected static function mutateBeforeCreate(array $data): array
+    {
+        return method_exists($data['component'], 'mutateBeforeCreate')
+            ? $data['component']::mutateBeforeCreate($data)
+            : $data;
+    }
+
+    protected static function mutateBeforeSave(array $data): array
+    {
+        return method_exists($data['component'], 'mutateBeforeSave')
+            ? $data['component']::mutateBeforeSave($data)
+            : $data;
+    }
+
+    protected static function mutateBeforeFill(array $data): array
+    {
+        return method_exists($data['component'], 'mutateBeforeFill')
+            ? $data['component']::mutateBeforeFill($data)
+            : $data;
     }
 }

@@ -32,9 +32,7 @@ class ContentResource extends Resource
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->mutateFormDataUsing(function (array $data): array {
-                        return method_exists($data['component'], 'mutateBeforeSave')
-                            ? $data['component']::mutateBeforeSave($data)
-                            : $data;
+                        return self::mutateBeforeSave($data);
                     })
             ])
             ->columns([
@@ -60,14 +58,10 @@ class ContentResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->modalHeading(__('contents::action.content.edit'))
                     ->mutateRecordDataUsing(function (array $data): array {
-                        return method_exists($data['component'], 'mutateBeforeFill')
-                            ? $data['component']::mutateBeforeFill($data)
-                            : $data;
+                        return self::mutateBeforeFill($data);
                     })
                     ->mutateFormDataUsing(function (array $data): array {
-                        return method_exists($data['component'], 'mutateBeforeSave')
-                            ? $data['component']::mutateBeforeSave($data)
-                            : $data;
+                        return self::mutateBeforeSave($data);
                     }),
                 Tables\Actions\DeleteAction::make()
                     ->modalHeading(__('contents::action.content.delete'))

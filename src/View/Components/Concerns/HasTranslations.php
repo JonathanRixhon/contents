@@ -114,6 +114,14 @@ trait HasTranslations
         return $data;
     }
 
+    /**
+     * Mutate translated datas before create
+     */
+    public static function mutateBeforeCreate(array $data): array
+    {
+        return static::mutateBeforeSave($data);
+    }
+
     protected static function getLocales(): array
     {
         $filamentTranslatable = filament()->hasPlugin('spatie-laravel-translatable')
