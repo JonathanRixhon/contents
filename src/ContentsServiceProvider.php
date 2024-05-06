@@ -22,6 +22,9 @@ class ContentsServiceProvider extends ServiceProvider
         ], ['contents-config']);
 
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'contents');
+        $this->publishes([
+            __DIR__.'/../lang' => $this->app->langPath('vendor/lang'),
+        ], ['contents-lang']);
     }
 
     /**

@@ -6,6 +6,7 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ActionGroup;
 use Jonathanrixhon\Contents\Models\Content;
 use Jonathanrixhon\Contents\Filament\Resources\Concerns\HasContents;
 
@@ -54,22 +55,30 @@ class ContentResource extends Resource
                     ->label(__('contents::label.visible'))
                     ->boolean()
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
-                    ->modalHeading(__('contents::action.content.edit'))
-                    ->mutateRecordDataUsing(function (array $data): array {
-                        return self::mutateBeforeFill($data);
-                    })
-                    ->mutateFormDataUsing(function (array $data): array {
-                        return self::mutateBeforeSave($data);
-                    }),
-                Tables\Actions\DeleteAction::make()
-                    ->modalHeading(__('contents::action.content.delete'))
-            ])
+            ->actions(self::actions())
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    static function actions(): ActionGroup
+    {
+        return ActionGroup::make([
+
+            Tables\Actions\ReplicateAction::make()
+                ->modalHeading(__('contents::action.content.duplicate')),
+            Tables\Actions\EditAction::make()
+                ->modalHeading(__('contents::action.content.edit'))
+                ->mutateRecordDataUsing(function (array $data): array {
+                    return self::mutateBeforeFill($data);
+                })
+                ->mutateFormDataUsing(function (array $data): array {
+                    return self::mutateBeforeSave($data);
+                }),
+            Tables\Actions\DeleteAction::make()
+                ->modalHeading(__('contents::action.content.delete'))
+        ]);
     }
 }

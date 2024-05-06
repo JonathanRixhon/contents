@@ -5,6 +5,7 @@ return [
 
     'content' => [
         'edit' => 'Edit le content',
+        'duplicate' => 'Duplicate content',
         'delete' => 'Delete content',
     ],
 

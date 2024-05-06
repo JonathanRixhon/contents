@@ -9,6 +9,8 @@ use Jonathanrixhon\Contents\Filament\Resources\ContentResource;
 
 class ContentsRelationManager extends RelationManager
 {
+    protected bool $allowsDuplicates = true;
+    
     protected static string $relationship = 'contents';
 
     public function form(Form $form): Form

@@ -88,7 +88,7 @@ class PageResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->modalHeading(__('contents::action.content.edit'))
+                    ->modalHeading(__('contents::action.content.edit')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jonathanrixhon\Contents\View\Components\Concerns;
+namespace Jonathanrixhon\Contents\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
