@@ -5,11 +5,9 @@ This package also include a Filament Page resource to manage your application's 
 
 ## TODO
 
-- Multilingual component support DONE,
 - write better documentation
-- better namespace / folder hierarchy
 - Tests
-- better way to set component default folder (in config menu)
+- better way to set component default folder (in config menu ?)
 
 ## Import serviceprovider
 
@@ -30,7 +28,7 @@ First, create a model and its migrations.
  php artisan make:model -m Post  
 ```
 
-_Don't forget to migrate the new table_
+_Don't forget to migrate the new tables_
 
 Then, add this trait to your model. It will simply add the content's morphMany relation to your model
 
@@ -88,6 +86,16 @@ public static function availableComponents(): array {
 
 Or edit the default component array in the `contents.php` config file.
 
+```php
+return [
+    //…
+    'components' => [
+        ExampleComponent::class
+    ]
+    //…
+]
+```
+
 ### Creating components
 
 To create a component, just run the Laravel command:
@@ -140,4 +148,44 @@ class ExampleComponent extends Concerns\Component
     }
 }
 
+```
+
+### Translations
+
+#### Setting locales
+
+The locales can be set in the package's config file in the `locale` array. If the `filament/spatie-laravel-translatable-plugin` is set up, the package will automatically get the package's locales.
+
+```php
+return [
+    //…
+    'locales' => ['fr', 'en']
+]
+```
+
+#### Translated components
+
+If you want to create a translated component, you can use the `\Jonathanrixhon\Contents\View\Components\Concerns\HasTranslations` trait in the created component. Then the only thing you need is to add a `translatedFields()` method and a `$translatable` static array property that contains the translated field's names like the following example:
+
+```php
+class TextImage extends Component
+{
+    use HasTranslations;
+
+    public static array $translatable = ['title', 'text'];
+
+    // Implement your component's logic here…
+
+    public static function translatedFields(): array
+    {
+        return [
+            TextInput::make('title')
+                ->columnSpanFull()
+                ->rules(['required']),
+            RichEditor::make('text')
+                ->columnSpanFull()
+                ->rules(['required']),
+        ];
+    }
+}
 ```
