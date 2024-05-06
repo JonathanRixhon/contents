@@ -39,8 +39,8 @@
         ]
     },
     "require": {
-        "filament/filament": "^3.2",
-        "spatie/eloquent-sortable": "^4.2",
-        "filament/spatie-laravel-translatable-plugin": "^3.2"
+        "filament/filament": ">=3.2",
+        "spatie/eloquent-sortable": ">=4.2",
+        "filament/spatie-laravel-translatable-plugin": ">=3.2"
     }
 }

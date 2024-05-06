@@ -17,6 +17,10 @@ class Content extends Model  implements Sortable
         'sort_when_creating' => true,
     ];
 
+    public $casts = [
+        'content' => 'json',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,18 +29,10 @@ class Content extends Model  implements Sortable
     protected $fillable = [
         'contenteable_id',
         'contenteable_type',
+        'visible',
         'order',
         'component',
         'content',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'content' => 'json',
     ];
 
     public function buildSortQuery()

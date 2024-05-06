@@ -56,6 +56,8 @@ class PostResource extends Resource
 {
     use HasContents;
     
+    protected static ?string $model = \App\Models\Post::class;
+    
     // classic resource configuration…
 
     public static function form(Form $form): Form

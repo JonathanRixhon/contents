@@ -6,6 +6,8 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Actions\ActionGroup;
 use Jonathanrixhon\Contents\Models\Content;
 use Jonathanrixhon\Contents\Filament\Resources\Concerns\HasContents;
@@ -22,7 +24,11 @@ class ContentResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form->schema([self::componentSelect(), ...self::groups()]);
+        return $form->schema([
+            self::header()
+                ->columnSpanFull(),
+            ...self::groups()
+        ]);
     }
 
     public static function table(Table $table): Table

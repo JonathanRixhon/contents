@@ -2,11 +2,12 @@
 
 namespace Jonathanrixhon\Contents\Filament\Resources\Concerns;
 
-use Filament\Facades\Filament;
 use Filament\Forms\Get;
 use Illuminate\Support\Str;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Repeater;
 
 trait HasContents
@@ -16,7 +17,7 @@ trait HasContents
      */
     public static function contentRepeater(): Repeater
     {
-        $schema = array_merge([self::componentSelect()], self::groups());
+        $schema = array_merge([self::header()], self::groups());
 
         return Repeater::make('contents')
             ->label(__('contents::label.contents'))
@@ -40,10 +41,10 @@ trait HasContents
                 return Str::limit($title, 30, '…');
             })
             ->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
-                return self::mutateBeforeCreate($data);
+                return self::mutateBeforeSave($data);
             })
             ->mutateRelationshipDataBeforeCreateUsing(function (array $data): array {
-                return self::mutateBeforeSave($data);
+                return self::mutateBeforeCreate($data);
             })
             ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
                 return self::mutateBeforeFill($data);
@@ -67,7 +68,21 @@ trait HasContents
     }
 
     /**
-     * Get the compontent select field
+     * Get the component select field
+     */
+    protected static function header(): Group
+    {
+        return Group::make([
+            self::componentSelect()
+                ->columnSpan(7),
+            self::visibilityToggle()
+                ->inline(false)
+                ->columnSpan(1),
+        ])->columns(8);
+    }
+
+    /**
+     * Get the component select field
      */
     protected static function componentSelect(): Select
     {
@@ -79,6 +94,15 @@ trait HasContents
             ->disabled(fn ($state) => $state ? true : false)
             ->dehydrated()
             ->required();
+    }
+
+    /**
+     * Get the component visible field
+     */
+    public static function visibilityToggle(): Toggle
+    {
+        return Toggle::make('visible')
+            ->label(__('contents::label.visible'));
     }
 
     /**
@@ -103,9 +127,7 @@ trait HasContents
 
     protected static function mutateBeforeCreate(array $data): array
     {
-        return method_exists($data['component'], 'mutateBeforeCreate')
-            ? $data['component']::mutateBeforeCreate($data)
-            : $data;
+        return self::mutateBeforeSave($data);
     }
 
     protected static function mutateBeforeSave(array $data): array
