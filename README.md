@@ -7,7 +7,6 @@ This package also include a Filament Page resource to manage your application's 
 
 - write better documentation
 - Tests
-- better way to set component default folder (in config menu ?)
 
 ## Import serviceprovider
 
