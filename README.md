@@ -106,18 +106,18 @@ To create a component, just run the Laravel command:
 php artisan make:component ExampleComponent
 ```
 
-Once your component is created, extends this component with `Jonathanrixhon\Contents\View\Components\Concerns\Component`. This class is already extends the `Illuminate\View\Component`.
+Once your component is created, extends this component with `\Jonathanrixhon\Contents\View\Components\Component`. This class is already extends the `Illuminate\View\Component`.
 
 you can now add the required methods and properties to make it work.
 
 ```php
 <?php
 
-namespace Jonathanrixhon\Contents\View\Components;
+namespace Jonathanrixhon\Contents\View\Components\Component;
 
 use Filament\Forms\Components\RichEditor;
 
-class ExampleComponent extends Concerns\Component
+class ExampleComponent extends Component
 {
     public static string $view = 'example-component';
 
