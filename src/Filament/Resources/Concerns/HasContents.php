@@ -50,7 +50,6 @@ trait HasContents
                 return self::mutateBeforeFill($data);
             });
     }
-
     /**
      * Get an array of component group used in the repeater
      * to show/hide the correct fields
@@ -63,7 +62,8 @@ trait HasContents
             return Group::make($component::getFields())
                 ->visible(function (Get $get) use ($component) {
                     return $get('component') === $component;
-                })->columnSpanFull();
+                })->columnSpanFull()
+                ->statePath('content');
         }, self::availableComponents());
     }
 

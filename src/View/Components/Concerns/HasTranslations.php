@@ -63,7 +63,9 @@ trait HasTranslations
                 ->schema(static::remapFields($lang));
         }, self::getLocales());
 
-        return Tabs::make('Tabs')->tabs($tabs);
+        return Tabs::make('Tabs')
+            ->statePath('translated')
+            ->tabs($tabs);
     }
 
     /**
@@ -74,7 +76,7 @@ trait HasTranslations
     public static function remapFields(string $lang): array
     {
         return array_map(function (Field $field)  use ($lang) {
-            $name = 'content.translated.' . $field->getName() . '.' . $lang;
+            $name = $field->getName() . '.' . $lang;
             return $field->statePath($name);
         }, self::translatedFields());
     }

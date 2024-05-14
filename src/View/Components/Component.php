@@ -77,14 +77,11 @@ abstract class Component extends \Illuminate\View\Component
     }
 
     /**
-     * Get the content's value
+     * Get the content's fields
      */
     public static function getFields()
     {
-        return array_map(function (Field $field) {
-            $name = 'content.' . $field->getName();
-            return $field->statePath($name);
-        }, static::fields());
+        return static::fields();
     }
 
     /**
