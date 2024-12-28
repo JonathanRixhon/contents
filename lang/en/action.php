@@ -4,9 +4,12 @@ return [
     'visible' => 'Visible',
 
     'content' => [
-        'edit' => 'Edit le content',
+        'edit' => 'Edit content',
         'duplicate' => 'Duplicate content',
         'delete' => 'Delete content',
+    ],
+    'page' => [
+        'edit' => 'Edit page',
     ],
 
     'component' => [
