@@ -3,16 +3,13 @@
 namespace Jonathanrixhon\Contents\Filament\Resources\Concerns;
 
 use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Illuminate\Support\Str;
-use Livewire\Component as Livewire;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
 
 trait HasContents
 {

@@ -15,7 +15,7 @@ class ManageContents extends ManageContentsBase
     {
         return __('contents::label.contents');
     }
-    
+
     public function table(Table $table): Table
     {
         return ContentResource::table($table);
