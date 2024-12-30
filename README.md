@@ -151,6 +151,70 @@ class ExampleComponent extends Component
 
 ```
 
+### Single component edition
+
+In this example I'll talk about the case where we want to have a custom  `hero`, `heading`. In theory, this types of components should be the first in the order, and is only present once.
+
+#### First, create a relation for your model
+
+```php
+class Page extends PageModel
+{
+    //…
+    public function heading(): MorphOne
+    {
+        return $this->morphOne(Content::class, 'contenteable')
+            ->where('component', \App\View\Components\Heading::class);
+    }
+}
+```
+
+#### Hide components from query
+
+```php
+
+class ManageContent extends ManageContents
+{
+    protected static string $resource = PageResource::class;
+
+    public function table(Table $table): Table
+    {
+        return ContentResource::table($table)
+            ->modifyQueryUsing(fn($query) => $query->whereNotIn('component', [Heading::class]));
+    }
+}
+
+```
+
+#### Add fields to your page
+
+```php
+class PageResource extends BasePage
+{
+    use HasContents;
+
+    //…
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                //… components
+                self::singleComponent(Heading::class, 'heading')
+            ]);
+    }
+}
+```
+
+#### Lock the component's order
+
+```php
+class Heading extends Component
+{
+    //…
+    public static int|null $fixedOrder = -1;
+}
+```
+
 ### Translations
 
 #### Setting locales
