@@ -58,6 +58,8 @@ trait HasContents
             ->relationship($relationship)
             ->heading($component::label())
             ->description($component::description())
+            ->collapsible()
+            ->collapsed()
             ->schema([
                 Hidden::make('order')
                     ->default($component::$fixedOrder ?? null),
