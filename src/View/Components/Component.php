@@ -30,6 +30,11 @@ abstract class Component extends \Illuminate\View\Component
     public static string $componentFolder = 'components';
 
     /**
+     * the component's fixed order
+     */
+    public static int|null $fixedOrder = null;
+
+    /**
      * Create a new component instance.
      */
     public function __construct(null|array $content = [])
