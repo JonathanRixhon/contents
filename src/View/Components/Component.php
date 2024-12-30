@@ -3,9 +3,8 @@
 namespace Jonathanrixhon\Contents\View\Components;
 
 use Closure;
+use ReflectionClass;
 use Illuminate\Contracts\View\View;
-use Filament\Forms\Components\Field;
-
 
 abstract class Component extends \Illuminate\View\Component
 {
@@ -17,7 +16,7 @@ abstract class Component extends \Illuminate\View\Component
     /**
      * the component's blade view
      */
-    public static string $view;
+    protected static string|null $view = null;
 
     /**
      * the component's attribute used to describe its content
@@ -74,6 +73,19 @@ abstract class Component extends \Illuminate\View\Component
     }
 
     /**
+     * Get the content's view
+     */
+    public static function getView()
+    {
+        if (static::$view) {
+            return static::$view;
+        }
+
+        $className = class_basename(static::class);
+        return str($className)->kebab();
+    }
+
+    /**
      * Get the content's value
      */
     protected function content(string $key): mixed
@@ -98,7 +110,7 @@ abstract class Component extends \Illuminate\View\Component
             ? $this->content
             : $this->process($this->content);
 
-        return view(static::$componentFolder . '.' . static::$view, $content);
+        return view(static::$componentFolder . '.' . self::getView(), $content);
     }
 
     /**
