@@ -3,12 +3,16 @@
 namespace Jonathanrixhon\Contents\Filament\Resources\Concerns;
 
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Illuminate\Support\Str;
-use Filament\Facades\Filament;
+use Livewire\Component as Livewire;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\TextInput;
 
 trait HasContents
 {
@@ -21,18 +25,18 @@ trait HasContents
 
         return Repeater::make('contents')
             ->label(__('contents::label.contents'))
-            ->live(onBlur: true)
-            ->relationship()
+            ->addActionLabel(__('contents::action.component.add'))
             ->orderColumn('order')
             ->columnSpanFull()
             ->schema($schema)
-            ->addActionLabel(__('contents::action.component.add'))
             ->collapsible()
             ->cloneable()
             ->reorderableWithButtons()
             ->collapsed()
+            ->live()
             ->itemLabel(function (array $state) {
                 $title = __('contents::action.component.create');
+
                 if ($state['component']) {
                     $component = (new $state['component']($state['content']));
                     $title = $component->{$component::$tableValue} ?? $state['component']::label();
@@ -40,16 +44,34 @@ trait HasContents
 
                 return Str::limit($title, 30, '…');
             })
-            ->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
-                return self::mutateBeforeSave($data);
-            })
-            ->mutateRelationshipDataBeforeCreateUsing(function (array $data): array {
-                return self::mutateBeforeCreate($data);
-            })
-            ->mutateRelationshipDataBeforeFillUsing(function (array $data): array {
-                return self::mutateBeforeFill($data);
-            });
+            ->mutateRelationshipDataBeforeSaveUsing(fn(array $data) => self::mutateBeforeSave($data))
+            ->mutateRelationshipDataBeforeCreateUsing(fn(array $data) => self::mutateBeforeCreate($data))
+            ->mutateRelationshipDataBeforeFillUsing(fn(array $data) => self::mutateBeforeFill($data));
     }
+
+    /**
+     * Get a section that manage a single component.
+     */
+    public static function singleComponent(string $component, string|null $relationship = null): Section
+    {
+        return Section::make()
+            ->relationship($relationship)
+            ->heading($component::label())
+            ->description($component::description())
+            ->schema([
+                Hidden::make('order')
+                    ->default($component::$fixedOrder ?? null),
+                Hidden::make('component')
+                    ->default($component),
+                Group::make()
+                    ->statePath('content')
+                    ->schema($component::getFields()),
+            ])
+            ->mutateRelationshipDataBeforeSaveUsing(fn(array $data) => self::mutateBeforeSave($data))
+            ->mutateRelationshipDataBeforeCreateUsing(fn(array $data) => self::mutateBeforeCreate($data))
+            ->mutateRelationshipDataBeforeFillUsing(fn(array $data) => self::mutateBeforeFill($data));
+    }
+
     /**
      * Get an array of component group used in the repeater
      * to show/hide the correct fields
@@ -62,13 +84,14 @@ trait HasContents
             return Group::make($component::getFields())
                 ->visible(function (Get $get) use ($component) {
                     return $get('component') === $component;
-                })->columnSpanFull()
+                })
+                ->columnSpanFull()
                 ->statePath('content');
         }, self::availableComponents());
     }
 
     /**
-     * Get the component select field
+     * Get the component's selector and visibility toggle
      */
     protected static function header(): Group
     {
@@ -77,6 +100,7 @@ trait HasContents
                 ->columnSpan(7),
             self::visibilityToggle()
                 ->inline(false)
+                ->default(true)
                 ->columnSpan(1),
         ])->columns(8);
     }
@@ -91,7 +115,7 @@ trait HasContents
             ->options(self::availableComponentOptions())
             ->columnSpanFull()
             ->live()
-            ->disabled(fn ($state) => $state ? true : false)
+            ->disabled(fn($state) => $state ? true : false)
             ->dehydrated()
             ->required();
     }
