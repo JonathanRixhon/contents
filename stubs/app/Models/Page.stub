@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Models;
+
+use Jonathanrixhon\Contents\Models\Page as PageModel;
+//use Spatie\Translatable\HasTranslations;
+
+class Page extends PageModel
+{
+    //use HasTranslations;
+    //protected array $translatable = ['title'];
+}

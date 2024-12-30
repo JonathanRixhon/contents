@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Http;
+
+use App\Models\Page;
+use Jonathanrixhon\Contents\Http\PageTemplate as BasePage;
+
+class PageTemplate extends BasePage
+{
+    protected string $pageClass = Page::class;
+}

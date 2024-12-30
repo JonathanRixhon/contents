@@ -1,0 +1,9 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Jonathanrixhon\Contents\Models\Content as ContentModel;
+
+class Content extends ContentModel {}

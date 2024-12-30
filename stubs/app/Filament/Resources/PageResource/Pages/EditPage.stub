@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Filament\Resources\PageResource\Pages;
+
+use App\Filament\Resources\PageResource;
+use Jonathanrixhon\Contents\Filament\RelationManagers\ContentsRelationManager;
+use Jonathanrixhon\Contents\Filament\Resources\PageResource\Pages\EditPage as BaseEdit;
+
+class EditPage extends BaseEdit
+{
+    protected static string $resource = PageResource::class;
+}
