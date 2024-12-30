@@ -170,13 +170,13 @@ class PageTemplate
     public function getProperties(array $extra = []): array
     {
         $defaults = [
-            'description' => $this->page?->meta_description ?? null,
+            'description' => $this->page?->description ?? null,
             'keywords' => implode(', ', config('contents.page.keywords')),
-            'og:description' => $this->page?->meta_og ?? null,
+            'og:description' => $this->page?->description ?? null,
             'og:image' => $this->getImage(),
             'og:title' => $this->getTitle(false),
             'og:url' => $this->getPageUrl(),
-            'twitter:description' => $this->page?->meta_twitter ?? null,
+            'twitter:description' => $this->page?->description ?? null,
             'twitter:title' => $this->getTitle(false),
             'twitter:image' => $this->getImage(true),
         ];
@@ -194,7 +194,7 @@ class PageTemplate
     public function getMetas(): array
     {
         return $this->getProperties([
-            'og:locale' => 'en',
+            'og:locale' => app()->getLocale(),
             'og:site_name' => $this->suffix,
             'og:type' => 'website',
             'twitter:card' => 'summary_large_image',

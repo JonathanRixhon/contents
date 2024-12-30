@@ -42,15 +42,9 @@ class PageResource extends Resource
                         ->label(__('contents::label.route'))
                         ->disabled()
                         ->required(),
-                    TextArea::make('meta_description')
-                        ->label(__('contents::label.meta_description'))
-                        ->columnSpanFull(),
-                    TextArea::make('meta_og')
-                        ->label(__('contents::label.meta_og'))
-                        ->columnSpanFull(),
-                    TextArea::make('meta_twitter')
-                        ->label(__('contents::label.meta_twitter'))
-                        ->columnSpanFull(),
+                    TextArea::make('description')
+                        ->label(__('contents::label.description'))
+                        ->columnSpanFull()
                 ]),
             Section::make(__('contents::label.contents'))
                 ->schema([self::contentRepeater()]),
@@ -67,14 +61,8 @@ class PageResource extends Resource
                 Tables\Columns\TextColumn::make('route')
                     ->label(__('contents::label.route'))
                     ->searchable(),
-                Tables\Columns\TextColumn::make('meta_description')
-                    ->label(__('contents::label.meta_description'))
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('meta_og')
-                    ->label(__('contents::label.meta_og'))
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('meta_twitter')
-                    ->label(__('contents::label.meta_twitter'))
+                Tables\Columns\TextColumn::make('description')
+                    ->label(__('contents::label.description'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('contents::label.created_at'))
@@ -88,7 +76,7 @@ class PageResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->modalHeading(__('contents::action.content.edit')),
+                    ->modalHeading(__('contents::action.content.edit'))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

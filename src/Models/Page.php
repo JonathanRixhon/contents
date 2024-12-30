@@ -19,8 +19,6 @@ class Page extends Model
     protected $fillable = [
         'title',
         'route',
-        'meta_description',
-        'meta_og',
-        'meta_twitter',
+        'description',
     ];
 }
