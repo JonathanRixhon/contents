@@ -15,9 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('title');
             $table->string('route');
-            $table->string('meta_description');
-            $table->string('meta_og');
-            $table->string('meta_twitter');
+            $table->string('description');
             $table->timestamps();
         });
     }

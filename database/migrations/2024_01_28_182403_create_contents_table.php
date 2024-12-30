@@ -20,8 +20,6 @@ return new class extends Migration
             $table->boolean('visible')->default(true);
             $table->json('content')->nullable();
             $table->timestamps();
-
-            $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
         });
     }
 
