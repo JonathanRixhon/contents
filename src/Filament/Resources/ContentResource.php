@@ -3,11 +3,11 @@
 namespace Jonathanrixhon\Contents\Filament\Resources;
 
 use Filament\Tables;
+use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\ActionGroup;
 use Jonathanrixhon\Contents\Models\Content;
 use Jonathanrixhon\Contents\Filament\Resources\Concerns\HasContents;
@@ -69,20 +69,15 @@ class ContentResource extends Resource
             ]);
     }
 
-    static function actions(): ActionGroup
+    public static function actions(): ActionGroup
     {
         return ActionGroup::make([
-
             Tables\Actions\ReplicateAction::make()
                 ->modalHeading(__('contents::action.content.duplicate')),
             Tables\Actions\EditAction::make()
                 ->modalHeading(__('contents::action.content.edit'))
-                ->mutateRecordDataUsing(function (array $data): array {
-                    return self::mutateBeforeFill($data);
-                })
-                ->mutateFormDataUsing(function (array $data): array {
-                    return self::mutateBeforeSave($data);
-                }),
+                ->mutateRecordDataUsing(fn(array $data) => self::mutateBeforeFill($data))
+                ->mutateFormDataUsing(fn(array $data) => self::mutateBeforeSave($data)),
             Tables\Actions\DeleteAction::make()
                 ->modalHeading(__('contents::action.content.delete'))
         ]);
