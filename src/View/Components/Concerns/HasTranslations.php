@@ -14,7 +14,7 @@ trait HasTranslations
      * allows to detect if the component is a subcomponent and then
      * skip the dataprocessing part
      */
-    public bool $skipTranslations;
+    public bool $skipTranslations = false;
 
     /**
      * Create a new component instance.
@@ -50,86 +50,5 @@ trait HasTranslations
         }
 
         return data_get($this->content, $key) ?? $this->{$key} ?? null;
-    }
-
-    /**
-     * Get the translated admin fields
-     */
-    public static function tabs(): Tabs
-    {
-
-        $tabs = array_map(function ($lang) {
-            return Tabs\Tab::make(mb_strtoupper($lang))
-                ->schema(static::remapFields($lang));
-        }, self::getLocales());
-
-        return Tabs::make('Tabs')
-            ->statePath('translated')
-            ->tabs($tabs);
-    }
-
-    /**
-     * Remap all components names with .$lang
-     * suffix to be a json object
-     *
-     */
-    public static function remapFields(string $lang): array
-    {
-        return array_map(function (Field $field)  use ($lang) {
-            $name = $field->getName() . '.' . $lang;
-            return $field->statePath($name);
-        }, self::translatedFields());
-    }
-
-    /**
-     * Get the content's value
-     */
-    public static function getFields()
-    {
-        return [
-            ...parent::getFields(),
-            self::tabs()
-        ];
-    }
-
-    /**
-     * Mutate translated datas before save
-     */
-    public static function mutateBeforeSave(array $data): array
-    {
-        $data['content'] = array_merge($data['content'], $data['content']['translated'] ?? []);
-        unset($data['content']['translated']);
-
-        return $data;
-    }
-
-    /**
-     * Mutate translated datas before save
-     */
-    public static function mutateBeforeFill(array $data): array
-    {
-        foreach (static::$translatable as $key) {
-            $data['content']['translated'][$key] = $data['content'][$key];
-            unset($data['content'][$key]);
-        }
-
-        return $data;
-    }
-
-    /**
-     * Mutate translated datas before create
-     */
-    public static function mutateBeforeCreate(array $data): array
-    {
-        return static::mutateBeforeSave($data);
-    }
-
-    protected static function getLocales(): array
-    {
-        $filamentTranslatable = filament()->hasPlugin('spatie-laravel-translatable')
-            ? filament('spatie-laravel-translatable')->getDefaultLocales()
-            : null;
-
-        return config('contents.locales') ?? $filamentTranslatable ?? [config('app.locale')];
     }
 }
