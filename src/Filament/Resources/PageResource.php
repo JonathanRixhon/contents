@@ -36,17 +36,17 @@ class PageResource extends Resource
                 ->columns(2)
                 ->schema([
                     TextInput::make('title')
-                        ->label(__('contents::label.title'))
+                        ->label(__('contents::field.title.label'))
                         ->required(),
                     TextInput::make('route')
-                        ->label(__('contents::label.route'))
+                        ->label(__('contents::field.route.label'))
                         ->disabled()
                         ->required(),
                     TextArea::make('description')
-                        ->label(__('contents::label.description'))
+                        ->label(__('contents::field.description.label'))
                         ->columnSpanFull()
                 ]),
-            Section::make(__('contents::label.contents'))
+            Section::make(__('contents::field.contents.label'))
                 ->schema([self::contentRepeater()]),
         ]);
     }
@@ -56,16 +56,16 @@ class PageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('contents::label.title'))
+                    ->label(__('contents::field.title.label'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('route')
-                    ->label(__('contents::label.route'))
+                    ->label(__('contents::field.route.label'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
-                    ->label(__('contents::label.description'))
+                    ->label(__('contents::field.description.label'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('contents::label.created_at'))
+                    ->label(__('contents::field.created_at.label'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

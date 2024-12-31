@@ -44,7 +44,7 @@ class ContentResource extends Resource
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('component')
-                    ->label(__('contents::label.component'))
+                    ->label(__('contents::field.component.label'))
                     ->formatStateUsing(function (Content $record) {
                         $component = $record->component
                             ? new $record->component($record->content)
@@ -58,7 +58,7 @@ class ContentResource extends Resource
                         return $record->component::label();
                     }),
                 Tables\Columns\IconColumn::make('visible')
-                    ->label(__('contents::label.visible'))
+                    ->label(__('contents::field.visible.label'))
                     ->boolean()
             ])
             ->actions(self::actions())

@@ -13,7 +13,7 @@ class ManageContents extends ManageContentsBase
 
     public static function getNavigationLabel(): string
     {
-        return __('contents::label.contents');
+        return __('contents::fields.contents.label');
     }
 
     public function table(Table $table): Table

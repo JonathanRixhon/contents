@@ -8,13 +8,14 @@ return [
         'duplicate' => 'Duplicate content',
         'delete' => 'Delete content',
     ],
+
     'page' => [
         'edit' => 'Edit page',
     ],
 
     'component' => [
         'edit' => 'Edit component',
-        'add' => 'Ajouter component',
+        'add' => 'Add component',
         'create' => 'New component'
     ],
 ];

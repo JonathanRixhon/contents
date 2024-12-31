@@ -21,7 +21,7 @@ trait HasContents
         $schema = array_merge([self::header()], self::groups());
 
         return Repeater::make('contents')
-            ->label(__('contents::label.contents'))
+            ->label(__('contents::field.contents.label'))
             ->addActionLabel(__('contents::action.component.add'))
             ->orderColumn('order')
             ->columnSpanFull()
@@ -110,7 +110,7 @@ trait HasContents
     protected static function componentSelect(): Select
     {
         return Select::make('component')
-            ->label(__('contents::label.component'))
+            ->label(__('contents::field.component.label'))
             ->options(self::availableComponentOptions())
             ->columnSpanFull()
             ->live()
@@ -125,7 +125,7 @@ trait HasContents
     public static function visibilityToggle(): Toggle
     {
         return Toggle::make('visible')
-            ->label(__('contents::label.visible'));
+            ->label(__('contents::field.visible.label'));
     }
 
     /**
