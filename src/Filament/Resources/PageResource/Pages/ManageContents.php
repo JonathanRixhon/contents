@@ -11,13 +11,13 @@ class ManageContents extends ManageContentsBase
 {
     protected static string $resource = PageResource::class;
 
-    public static function getNavigationLabel(): string
-    {
-        return __('contents::fields.contents.label');
-    }
+    // public static function getNavigationLabel(): string
+    // {
+    //     return __('contents::fields.contents.label');
+    // }
 
-    public function table(Table $table): Table
-    {
-        return ContentResource::table($table);
-    }
+    // public function table(Table $table): Table
+    // {
+    //     return ContentResource::table($table);
+    // }
 }
