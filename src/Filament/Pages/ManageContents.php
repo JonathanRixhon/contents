@@ -20,7 +20,7 @@ class ManageContents extends \Filament\Resources\Pages\ManageRelatedRecords
 
     public static function getNavigationLabel(): string
     {
-        return __('contents::page.manage-contents');
+        return __('contents::page.manage-contents.title');
     }
 
     public function form(Form $form): Form
