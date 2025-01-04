@@ -32,7 +32,8 @@ class PageResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Section::make(__('contents::page.general.title'))
+            Section::make(__('contents::page.general.label'))
+                ->description(__('contents::page.general.description'))
                 ->columns(2)
                 ->schema([
                     TextInput::make('title')

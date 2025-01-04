@@ -11,7 +11,7 @@ return [
     */
 
     'components' => [
-        //ExampleComponent::class
+        //\App\View\Components\ExampleComponent::class
     ],
 
     /*
