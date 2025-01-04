@@ -2,9 +2,11 @@
 
 namespace Jonathanrixhon\Contents\View\Components;
 
+use App\View\Components\SlidingText;
 use Closure;
 use ReflectionClass;
 use Illuminate\Contracts\View\View;
+use Illuminate\View\ComponentAttributeBag;
 
 abstract class Component extends \Illuminate\View\Component
 {
@@ -17,6 +19,11 @@ abstract class Component extends \Illuminate\View\Component
      * the component's blade view
      */
     protected static string|null $view = null;
+
+    /**
+     * the component's classname
+     */
+    protected static string|null $className = null;
 
     /**
      * the component's attribute used to describe its content
@@ -86,6 +93,19 @@ abstract class Component extends \Illuminate\View\Component
     }
 
     /**
+     * Get the component's class
+     */
+    public static function getClassName()
+    {
+        if (static::$className) {
+            return static::$className;
+        }
+
+        $className = class_basename(static::class);
+        return str($className)->kebab();
+    }
+
+    /**
      * Get the table title
      */
     public function getTableTitle(): string
@@ -118,7 +138,26 @@ abstract class Component extends \Illuminate\View\Component
             ? $this->content
             : $this->process($this->content);
 
-        return view(static::$componentFolder . '.' . self::getView(), $content);
+        return function (array $data) use ($content) {
+            $attributes = $this->manageAttributes($data['attributes'], $content);
+            $this->withAttributes($attributes->getAttributes());
+
+            return view(static::$componentFolder . '.' . self::getView(), $content);
+        };
+    }
+
+
+    /**
+     * Build classes
+     */
+    public function manageAttributes(ComponentAttributeBag $attributes, array $content = []): ComponentAttributeBag
+    {
+        $class = array_reduce($content['modifiers'] ?? [], function ($carry, $modifier) {
+            $carry .= static::getClassName() . '--' . $modifier;
+            return $carry;
+        }, '');
+
+        return $attributes->merge(compact('class'));
     }
 
     /**
