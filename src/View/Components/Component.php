@@ -90,7 +90,7 @@ abstract class Component extends \Illuminate\View\Component
      */
     public function getTableTitle(): string
     {
-        return $this->{static::$tableValue};
+        return $this->content(static::$tableValue);
     }
 
     /**
