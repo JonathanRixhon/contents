@@ -86,6 +86,14 @@ abstract class Component extends \Illuminate\View\Component
     }
 
     /**
+     * Get the table title
+     */
+    public function getTableTitle(): string
+    {
+        return $this->{static::$tableValue};
+    }
+
+    /**
      * Get the content's value
      */
     protected function content(string $key): mixed

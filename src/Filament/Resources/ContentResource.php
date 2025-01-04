@@ -49,7 +49,7 @@ class ContentResource extends Resource
                         $component = $record->component
                             ? new $record->component($record->content)
                             : null;
-                        return $component->{$component::$tableValue} ?? 'No content';
+                        return $component->getTableTitle() ?? 'No content';
                     })
                     ->tooltip(function (Content $record) {
                         return $record->component::description();
