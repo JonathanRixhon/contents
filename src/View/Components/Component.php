@@ -153,7 +153,7 @@ abstract class Component extends \Illuminate\View\Component
     public function manageAttributes(ComponentAttributeBag $attributes, array $content = []): ComponentAttributeBag
     {
         $class = array_reduce($content['modifiers'] ?? [], function ($carry, $modifier) {
-            $carry .= static::getClassName() . '--' . $modifier;
+            $carry .= ' ' . static::getClassName() . '--' . $modifier;
             return $carry;
         }, '');
 
