@@ -36,13 +36,13 @@ class ContentsServiceProvider extends ServiceProvider
             //Filament
             Helpers::stubsPath('app/Filament/Pages/Settings.stub') => app_path('Filament/Pages/Settings.php'),
             Helpers::stubsPath('app/Filament/Resources/Concerns/Form.stub') => app_path('Filament/Resources/Concerns/Form.php'),
-            Helpers::stubsPath('app/Filament/Resources/PageResource/Forms/PageForm.stub') => app_path('Filament/Resources/PageResource/Forms/PageForm.php'),
-            Helpers::stubsPath('app/Filament/Resources/PageResource/Pages/CreatePage.stub') => app_path('Filament/Resources/PageResource/Pages/CreatePage.php'),
-            Helpers::stubsPath('app/Filament/Resources/PageResource/Pages/EditPage.stub') => app_path('Filament/Resources/PageResource/Pages/EditPage.php'),
-            Helpers::stubsPath('app/Filament/Resources/PageResource/Pages/ListPages.stub') => app_path('Filament/Resources/PageResource/Pages/ListPages.php'),
-            Helpers::stubsPath('app/Filament/Resources/PageResource/Pages/ManageContent.stub') => app_path('Filament/Resources/PageResource/Pages/ManageContent.php'),
-            Helpers::stubsPath('app/Filament/Resources/ContentResource.stub') => app_path('Filament/Resources/ContentResource.php'),
-            Helpers::stubsPath('app/Filament/Resources/PageResource.stub') => app_path('Filament/Resources/PageResource.php'),
+            Helpers::stubsPath('app/Filament/Resources/Pages/Schemas/PageForm.stub') => app_path('Filament/Resources/Pages/Schemas/PageForm.php'),
+            Helpers::stubsPath('app/Filament/Resources/Pages/Pages/CreatePage.stub') => app_path('Filament/Resources/Pages/Pages/CreatePage.php'),
+            Helpers::stubsPath('app/Filament/Resources/Pages/Pages/EditPage.stub') => app_path('Filament/Resources/Pages/Pages/EditPage.php'),
+            Helpers::stubsPath('app/Filament/Resources/Pages/Pages/ListPages.stub') => app_path('Filament/Resources/Pages/Pages/ListPages.php'),
+            Helpers::stubsPath('app/Filament/Resources/Pages/Pages/ManageContent.stub') => app_path('Filament/Resources/Pages/Pages/ManageContent.php'),
+            Helpers::stubsPath('app/Filament/Resources/Contents/ContentResource.stub') => app_path('Filament/Resources/Contents/ContentResource.php'),
+            Helpers::stubsPath('app/Filament/Resources/Pages/PageResource.stub') => app_path('Filament/Resources/Pages/PageResource.php'),
             Helpers::stubsPath('resources/views/filament/pages/settings.blade.php') => resource_path('views/filament/pages/settings.blade.php'),
 
             //Models

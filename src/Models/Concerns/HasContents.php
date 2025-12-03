@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 trait HasContents
 {
     public static string $contentClass = Content::class;
-    
+
     /**
      * Get all of the model's contents.
      */

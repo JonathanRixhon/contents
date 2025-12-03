@@ -1,9 +1,9 @@
 <?php
 
-namespace Jonathanrixhon\Contents\Filament\Resources\PageResource\Pages;
+namespace Jonathanrixhon\Contents\Filament\Resources\Pages\Pages;
 
 use Filament\Resources\Pages\ListRecords;
-use Jonathanrixhon\Contents\Filament\Resources\PageResource;
+use Jonathanrixhon\Contents\Filament\Resources\Pages\PageResource;
 
 class ListPages extends ListRecords
 {

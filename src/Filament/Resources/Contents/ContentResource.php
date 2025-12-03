@@ -1,16 +1,20 @@
 <?php
 
-namespace Jonathanrixhon\Contents\Filament\Resources;
+namespace Jonathanrixhon\Contents\Filament\Resources\Contents;
 
+use BackedEnum;
 use Filament\Tables;
-use Filament\Forms\Get;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\ActionGroup;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ReplicateAction;
 use Jonathanrixhon\Contents\Models\Content;
 use Jonathanrixhon\Contents\Filament\Resources\Concerns\HasContents;
+use Jonathanrixhon\Contents\Filament\Resources\Contents\Schemas\ContentForm;
 
 class ContentResource extends Resource
 {
@@ -18,17 +22,13 @@ class ContentResource extends Resource
 
     protected static ?string $model = Content::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form->schema([
-            self::header()
-                ->columnSpanFull(),
-            ...self::groups()
-        ]);
+        return ContentForm::configure($schema);
     }
 
     public static function table(Table $table): Table
@@ -37,8 +37,8 @@ class ContentResource extends Resource
             ->defaultSort('order')
             ->reorderable('order')
             ->headerActions([
-                Tables\Actions\CreateAction::make()
-                    ->mutateFormDataUsing(function (array $data): array {
+                CreateAction::make()
+                    ->mutateDataUsing(function (array $data): array {
                         return self::mutateBeforeSave($data);
                     })
             ])
@@ -61,24 +61,25 @@ class ContentResource extends Resource
                     ->label(__('contents::field.visible.label'))
                     ->boolean()
             ])
-            ->actions(self::actions())
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->recordActions(self::actions())
+            // ->bulkActions([
+            //     BulkActionGroup::make([
+            //         DeleteBulkAction::make(),
+            //     ]),
+            // ])
+        ;
     }
 
     public static function actions(): ActionGroup
     {
         return ActionGroup::make([
-            Tables\Actions\ReplicateAction::make()
+            ReplicateAction::make()
                 ->modalHeading(__('contents::action.content.duplicate')),
-            Tables\Actions\EditAction::make()
+            EditAction::make()
                 ->modalHeading(__('contents::action.content.edit'))
                 ->mutateRecordDataUsing(fn(array $data) => self::mutateBeforeFill($data))
-                ->mutateFormDataUsing(fn(array $data) => self::mutateBeforeSave($data)),
-            Tables\Actions\DeleteAction::make()
+                ->mutateDataUsing(fn(array $data) => self::mutateBeforeSave($data)),
+            DeleteAction::make()
                 ->modalHeading(__('contents::action.content.delete'))
         ]);
     }

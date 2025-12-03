@@ -1,9 +1,10 @@
 <?php
 return [
-    'title' => [
-        'general' => 'Informations générales',
+    'general' => [
+        'label' => 'Informations générales',
+        'description' => 'Information basiques à propos de la page comme les meta informatoions, miniature,…',
     ],
-    
+
     "manage-contents" => [
         "title" => "Contenus"
     ]

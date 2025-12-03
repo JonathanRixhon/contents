@@ -2,14 +2,14 @@
 
 namespace Jonathanrixhon\Contents\Filament\Resources\Concerns;
 
-use Filament\Forms\Get;
 use Illuminate\Support\Str;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Section;
+use Filament\Schemas\Components\Group;
 use Filament\Forms\Components\Repeater;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 
 trait HasContents
 {
@@ -21,6 +21,7 @@ trait HasContents
         $schema = array_merge([self::header()], self::groups());
 
         return Repeater::make('contents')
+            ->relationship('contents')
             ->label(__('contents::field.contents.label'))
             ->addActionLabel(__('contents::action.component.add'))
             ->orderColumn('order')

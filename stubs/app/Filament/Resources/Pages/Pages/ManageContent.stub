@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Filament\Resources\Pages\Pages;
+
+use App\Filament\Resources\Pages\PageResource;
+use Jonathanrixhon\Contents\Filament\Pages\ManageContents as BaseManager;
+
+class ManageContents extends BaseManager
+{
+    protected static string $resource = PageResource::class;
+}
