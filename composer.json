@@ -46,7 +46,7 @@
         }
     },
     "require": {
-        "filament/filament": ">=4",
-        "spatie/eloquent-sortable": ">=4.5"
+        "filament/filament": "^4",
+        "spatie/eloquent-sortable": "^4.5"
     }
 }
