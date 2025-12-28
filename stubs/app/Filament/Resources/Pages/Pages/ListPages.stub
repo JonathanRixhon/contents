@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Filament\Resources\Pages\Pages;
+
+use App\Filament\Resources\Pages\PageResource;
+use Jonathanrixhon\Contents\Filament\Resources\Pages\Pages\ListPages as BaseList;
+
+class ListPages extends BaseList
+{
+    protected static string $resource = PageResource::class;
+}

@@ -1,9 +1,0 @@
-<?php
-
-namespace App\Filament\Resources;
-
-use Jonathanrixhon\Contents\Filament\Resources\ContentResource as BaseContent;
-
-class ContentResource extends BaseContent
-{
-}
