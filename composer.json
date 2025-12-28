@@ -8,11 +8,11 @@
     "authors": [
         {
             "name": "Jonathan Rixhon",
-            "email": "hello@jonathanrixhon.dev"
+            "email": "hello@jonathanrixhon.be"
         }
     ],
     "require-dev": {
-        "orchestra/testbench": "^9.5"
+        "orchestra/testbench": "^10"
     },
     "autoload-dev": {
         "psr-4": {
@@ -46,8 +46,7 @@
         }
     },
     "require": {
-        "filament/filament": ">=3.2",
-        "spatie/eloquent-sortable": ">=4.2",
-        "filament/spatie-laravel-translatable-plugin": ">=3.2"
+        "filament/filament": "^4",
+        "spatie/eloquent-sortable": "^4.5"
     }
 }

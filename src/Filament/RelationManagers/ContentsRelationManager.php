@@ -4,8 +4,9 @@ namespace Jonathanrixhon\Contents\Filament\RelationManagers;
 
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Schemas\Schema;
 use Filament\Resources\RelationManagers\RelationManager;
-use Jonathanrixhon\Contents\Filament\Resources\ContentResource;
+use Jonathanrixhon\Contents\Filament\Resources\Contents\ContentResource;
 
 class ContentsRelationManager extends RelationManager
 {
@@ -13,11 +14,10 @@ class ContentsRelationManager extends RelationManager
     
     protected static string $relationship = 'contents';
 
-    public function form(Form $form): Form
+    public function schema(Schema $schema): Schema
     {
-        return ContentResource::form($form);
+        return ContentResource::schema($schema);
     }
-
 
     public function table(Table $table): Table
     {
